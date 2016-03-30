@@ -88,46 +88,6 @@ if (Meteor.isClient) {
                                   };
 
 
-    }])
-
-    .controller('ChatCtrl', ['$scope', function($scope){
-
-      $scope.Pseudo = "";
-      $scope.Text = "";
-
-      $scope.checkForm= function(){
-      if ($scope.Pseudo !="" && $scope.Text !="") return true;
-      else return false;
-      }
-
-      $scope.isFilled = function(){
-      if($scope.messages.length > 0){
-        return true;
-      }
-      else false;
-    };
-
-      $scope.sendMessage = function(){
-  if($scope.checkForm()){
-
-    var newMessage = new function() {
-           this.Pseudo = $scope.Pseudo;
-           this.Text = $scope.Text;
-       }
-       $scope.Pseudo = "";
-       $scope.Text = "";
-       $scope.messages.push(newMessage);
-
-
-  }
-
-
-
-
-      };
-
-      $scope.messages =[] ;
-
     }]);
 
 }
