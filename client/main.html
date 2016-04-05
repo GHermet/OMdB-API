@@ -1,0 +1,111 @@
+<div layout="column" layout-fill ng-controller="SearchCtrl">
+  <md-toolbar ng-if="true" layout="row" class="md-whiteframe-z4">
+    <div class="md-toolbar-tools">
+      <md-button ng-show="showDetails" ng-click="ReturnToList()" aria-label="Go Back">
+         Go Back
+       </md-button>
+      <div layout-align="center">
+        <span>OMdB API</span>
+        </div>
+    </div>
+  </md-toolbar>
+  <md-content flex>
+  <md-card ng-hide="showDetails">
+  <div flex layout="row" layout-xs="column" layout-align="center">
+    <div layout="row" flex-offset="5" flex>
+  <md-input-container md-no-float flex="70">
+      <label>Search</label>
+          <input  ng-model="search" ng-change="SearchResults()">
+        </md-input-container>
+        <div flex>
+        <md-input-container>
+        <md-button  ng-hide="isSearchEmpty()" class="md-icon-button md-primary" aria-label="Settings">
+          <img ng-click="Delete()" class="icon icons8-Delete"
+          src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0ibnVsbCIgaGVpZ2h0PSJudWxsIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJudWxsIiBmaWxsPSIjMDAwIiA+ICAgIDxwYXRoIGQ9Ik0gNS42MjUgNC4yMTg3NSBMIDQuMjE4NzUgNS42MjUgTCAxMC41OTM3NSAxMiBMIDQuMjE4NzUgMTguMzc1IEwgNS42MjUgMTkuNzgxMjUgTCAxMiAxMy40MDYyNSBMIDE4LjM3NSAxOS43ODEyNSBMIDE5Ljc4MTI1IDE4LjM3NSBMIDEzLjQwNjI1IDEyIEwgMTkuNzgxMjUgNS42MjUgTCAxOC4zNzUgNC4yMTg3NSBMIDEyIDEwLjU5Mzc1IEwgNS42MjUgNC4yMTg3NSB6Ij48L3BhdGg+PC9zdmc+'/>
+          </md-button>
+        </md-input-container>
+      </div>
+      </div>
+      <div flex-offset="5" flex>
+        <md-input-container>
+          <label>Type</label>
+          <md-select ng-model="movietype" ng-change="SearchResults()">
+            <md-option ng-repeat="type in types" value="{{type}}">{{type}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Year</label>
+          <md-select ng-model="movieyear" ng-change="SearchResults()">
+            <md-option ng-repeat="year in years" value="{{year}}">{{year}}</md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container ng-hide="true">
+          <label>Order by</label>
+          <md-select ng-model="movieorder">
+            <md-option ng-repeat="resultsOrder in resultsOrders" value="{{resultsOrder}}">{{resultsOrder}}</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      </div>
+    </md-card>
+
+      <md-card ng-hide="isSearchEmpty()||showDetails" >
+        <md-progress-linear  ng-if="isLoading" md-mode="indeterminate"></md-progress-linear>
+       <md-subheader class="md-sticky">Search Results</md-subheader>
+      <md-list flex>
+    <md-list-item  class="md-2-line" ng-show="isResultListEmpty()">
+          <h3>No {{ movietype }} matching for '{{search}}'</h3>
+        </md-list-item>
+       <md-list-item ng-hide="false" ng-click="GetDetails(movie)" class="md-3-line container" ng-repeat="movie in movies | orderBy:'Title'">
+         <img ng-src="{{movie.Poster}}" class="md-avatar" />
+         <div class="md-list-item-text">
+              <div layout="row">
+           <div flex="90">
+           <h3>{{ movie.Title }}</h3>
+         </div>
+         <div hide-xs  hide-sm layout-align="end stretch">
+           <h3>{{ movie.Type }}</h3>
+         </div>
+       </div>
+           <div><p>{{ movie.Year }} </p></div>
+           <div show-xs show-sm hide-gt-xs ><p>{{ movie.Type }}</p></div>
+     </div>
+       </md-list-item>
+     </md-list>
+   </md-card>
+   <md-card ng-if="showDetails">
+  <div layout="row" layout-align="center center">
+       <md-progress-circular ng-if="isLoading" md-mode="indeterminate" md-diameter="80"></md-progress-circular>
+     </div>
+     <!--For operations where the user is asked to wait a moment while something finishes up, and it’s not necessary to expose what's happening behind the scenes and how long it will take, use an md-mode="indeterminate" indicator.-->
+     <div ng-show="isDoneLoading()">
+       <md-card-title>
+         <md-card-title-text>
+         <span class="md-headline">{{movieInfo.Title}}</span>
+             <h5> {{movieInfo.Runtime}} | {{movieInfo.Year}} | {{movieInfo.Genre}} | Directed by {{movieInfo.Director}} | {{movieInfo.imdbRating}}/10</h5>
+         </md-card-title-text>
+       </md-card-title>
+       <md-card-content>
+         <div layout="row" layout-sm="column" layout-xs="column">
+          <div flex="30"> <img ng-src="{{ movieInfo.Poster || 'http://jimpunk.com/Loading/loading34.gif' }}" style="heigth=70px;" alt=""></div>
+          <div flex="5"></div>
+         <div  layout-fill flex="60">
+           <h3>Synopsis</h3>
+         <p> {{movieInfo.Plot}} </p>
+         <h3>Writers</h3>
+         <p> {{movieInfo.Writer}} </p>
+         <h3>Actors</h3>
+         <p> {{movieInfo.Actors}}</p>
+         <h3>Awards</h3>
+         <p>{{movieInfo.Awards}}</p>
+       </div>
+     </div>
+       </md-card-content>
+       <md-card-actions layout="row" layout-align="end center">
+         <md-button ng-click="ReturnToList()">Return to list</md-button>
+         <md-button ng-click="GetTrailer(movieInfo,$event)">Watch Trailer</md-button>
+       </md-card-actions>
+     </div>
+     </md-card>
+   </md-content>
+</div>

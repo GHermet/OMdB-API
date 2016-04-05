@@ -1,0 +1,20 @@
+<md-dialog ng-controller="SearchCtrl" ng-cloak>
+  <form>
+    <md-toolbar >
+      <div class="md-toolbar-tools">
+        <h2>{{Trailer.title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <img ng-click="Delete()" class="icon icons8-Delete"
+          src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjAiIHg9IjBweCIgeT0iMHB4IiB3aWR0aD0ibnVsbCIgaGVpZ2h0PSJudWxsIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJudWxsIiBmaWxsPSIjMDAwIiA+ICAgIDxwYXRoIGQ9Ik0gNS42MjUgNC4yMTg3NSBMIDQuMjE4NzUgNS42MjUgTCAxMC41OTM3NSAxMiBMIDQuMjE4NzUgMTguMzc1IEwgNS42MjUgMTkuNzgxMjUgTCAxMiAxMy40MDYyNSBMIDE4LjM3NSAxOS43ODEyNSBMIDE5Ljc4MTI1IDE4LjM3NSBMIDEzLjQwNjI1IDEyIEwgMTkuNzgxMjUgNS42MjUgTCAxOC4zNzUgNC4yMTg3NSBMIDEyIDEwLjU5Mzc1IEwgNS42MjUgNC4yMTg3NSB6Ij48L3BhdGg+PC9zdmc+'/>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+      {{Trailer.embed}}
+    </div>
+    </md-dialog-content>
+
+  </form>
+</md-dialog>
