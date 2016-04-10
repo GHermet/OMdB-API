@@ -25,7 +25,7 @@
     <div layout="row" flex-offset="5" flex>
   <md-input-container md-no-float flex="70">
       <label>Search</label>
-          <input  ng-model="search" ng-change="SearchResults()">
+          <input  ng-model="search" ng-change="fetchResults()">
         </md-input-container>
         <div flex>
         <md-input-container>
@@ -39,13 +39,13 @@
       <div flex-offset="5" flex>
         <md-input-container>
           <label>Type</label>
-          <md-select ng-model="movietype" ng-change="SearchResults()">
+          <md-select ng-model="movietype" ng-change="fetchResults()">
             <md-option ng-repeat="type in types" value="{{type}}">{{type}}</md-option>
           </md-select>
         </md-input-container>
         <md-input-container>
           <label>Year</label>
-          <md-select ng-model="movieyear" ng-change="SearchResults()">
+          <md-select ng-model="movieyear" ng-change="fetchResults()">
             <md-option ng-repeat="year in years" value="{{year}}">{{year}}</md-option>
           </md-select>
         </md-input-container>

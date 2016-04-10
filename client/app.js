@@ -126,6 +126,11 @@ if (Meteor.isClient) {
         return $scope.resultsOrder;
       }
 
+      $scope.fetchResults= function(){
+        $scope.page=1;
+        $scope.SearchResults();
+      }
+
       $scope.SearchResults = function(){
         $scope.isLoading=true;
         $scope.movies = [];
