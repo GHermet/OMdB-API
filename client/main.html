@@ -1,15 +1,25 @@
 <div layout="column" layout-fill ng-controller="SearchCtrl">
-  <md-toolbar ng-if="true" layout="row" class="md-whiteframe-z4">
-    <div class="md-toolbar-tools">
+  <md-toolbar style="position: fixed;" ng-if="true" layout="row" class="md-whiteframe-z4">
+    <div layout="row" class="md-toolbar-tools">
       <md-button ng-show="showDetails" ng-click="ReturnToList()" aria-label="Go Back">
          Go Back
        </md-button>
       <div layout-align="center">
         <span>OMdB API</span>
         </div>
+           <span flex></span>
+
+        <md-button ng-hide="isSearchEmpty()||showDetails||isFirstPage()"  ng-click="previousPage()" aria-label="Filters">
+        Previous
+         </md-button>
+         <h6 ng-hide="isSearchEmpty()||showDetails">Page {{page}}</h6>
+         <md-button ng-hide="isSearchEmpty()||showDetails"  ng-click="nextPage()" aria-label="Filters">
+          Next
+          </md-button>
+
     </div>
   </md-toolbar>
-  <md-content flex>
+  <md-content layout-margin style="margin-top:1.7cm;" flex>
   <md-card ng-hide="showDetails">
   <div flex layout="row" layout-xs="column" layout-align="center">
     <div layout="row" flex-offset="5" flex>
@@ -48,9 +58,8 @@
       </div>
       </div>
     </md-card>
-
       <md-card ng-hide="isSearchEmpty()||showDetails" >
-        <md-progress-linear  ng-if="isLoading" md-mode="indeterminate"></md-progress-linear>
+        <md-progress-linear ng-show="isLoading" md-mode="indeterminate"></md-progress-linear>
        <md-subheader class="md-sticky">Search Results</md-subheader>
       <md-list flex>
     <md-list-item  class="md-2-line" ng-show="isResultListEmpty()">
@@ -103,7 +112,9 @@
        </md-card-content>
        <md-card-actions layout="row" layout-align="end center">
          <md-button ng-click="ReturnToList()">Return to list</md-button>
-         <md-button ng-click="GetTrailer(movieInfo,$event)">Watch Trailer</md-button>
+         <md-button
+         target="_blank"
+          href="https://www.youtube.com/results?search_query={{movieInfo.Title}}+{{movieInfo.Year}}+trailer">Watch Trailer</md-button>
        </md-card-actions>
      </div>
      </md-card>

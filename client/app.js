@@ -95,6 +95,24 @@ if (Meteor.isClient) {
 
       };
 
+      $scope.isFirstPage = function(){
+        if ($scope.page==1) return true;
+        else return false;
+      };
+      $scope.isLastPage = function(){
+        if ($scope.page==1) return true;
+        else return false;
+      };
+      $scope.previousPage = function(){
+        if($scope.page>1){
+          $scope.page--;
+          $scope.SearchResults();
+        }
+      };
+      $scope.nextPage = function(){
+        $scope.page++;
+        $scope.SearchResults();
+      };
       $scope.isSearchEmpty = function(){
         if($scope.search=="") return true;
         else return false;
@@ -113,16 +131,16 @@ if (Meteor.isClient) {
         $scope.movies = [];
         $http.get('http://www.omdbapi.com/?'+
         's='+$scope.search+
-        '&plot=long'+
+        '&plot=full'+
         '&page='+$scope.page+
         '&type='+$scope.movietype+
         '&y='+$scope.movieyear).then(function successCallback(response) {
           console.log(response);
             $scope.movies=response.data.Search ;
-            $scope.isLoading=false;
+            $scope.isLoading = false;
     }, function errorCallback(response) {
           console.log(response|| "Request failed");
-            $scope.isLoading=false;
+            $scope.isLoading = false;
     });
                 };
 
@@ -134,11 +152,12 @@ if (Meteor.isClient) {
                       't='+movie.Title
                     ).then(function successCallback(response) {
                         console.log(response);
+                          $scope.isLoading=false;
 
                     $scope.movieInfo = response.data;
                   }, function errorCallback(response) {
                         console.log(response|| "Request failed");
-
+                          $scope.isLoading=false;
                   });
 
                             $scope.isLoading=false;      };
