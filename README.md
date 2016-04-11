@@ -16,6 +16,10 @@ Its purpose is to look up **Movies**, **Series** or **Episode** information by *
 * 4. Cd into the **OMdB-API** folder and run `npm install` from your terminal
 * 5. Finally run `meteor` from your terminal then the website will be hosted at **localhost:3000**
 
+## Contributors
+
+* Guillaume Hermet
+* Léa Chenut
 
 ## License
 
