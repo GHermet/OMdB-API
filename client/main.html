@@ -66,7 +66,7 @@
           <h3>No {{ movietype }} matching for '{{search}}'</h3>
         </md-list-item>
        <md-list-item ng-hide="false" ng-click="GetDetails(movie)" class="md-3-line container" ng-repeat="movie in movies | orderBy:'Title'">
-         <img ng-src="{{movie.Poster}}" class="md-avatar" />
+         <img ng-src="{{ movie.Poster}}" onError="this.src='http://sedacity.com/wp-content/uploads/2016/02/nopicture.gif';"  class="md-avatar" />
          <div class="md-list-item-text">
               <div layout="row">
            <div flex="90">
@@ -96,7 +96,7 @@
        </md-card-title>
        <md-card-content>
          <div layout="row" layout-sm="column" layout-xs="column">
-          <div flex="30"> <img ng-src="{{ movieInfo.Poster || 'http://jimpunk.com/Loading/loading34.gif' }}" style="heigth=70px;" alt=""></div>
+          <div flex="30"> <img ng-src="{{ movieInfo.Poster || 'http://jimpunk.com/Loading/loading34.gif' }}" onError="this.src='http://sedacity.com/wp-content/uploads/2016/02/nopicture.gif';" style="heigth=70px;" alt=""></div>
           <div flex="5"></div>
          <div  layout-fill flex="60">
            <h3>Synopsis</h3>
@@ -104,7 +104,9 @@
          <h3>Writers</h3>
          <p> {{movieInfo.Writer}} </p>
          <h3>Actors</h3>
-         <p> {{movieInfo.Actors}}</p>
+         <div layout="row">
+        <a layout-padding target="_blank" href="https://fr.wikipedia.org/wiki/{{actor.name}}" ng-repeat="actor in actors">{{actor.name}}</a>
+       </div>
          <h3>Awards</h3>
          <p>{{movieInfo.Awards}}</p>
        </div>

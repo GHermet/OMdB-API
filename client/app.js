@@ -1,23 +1,16 @@
 if (Meteor.isClient) {
   var App = angular.module('omdb', ['angular-meteor','ngMaterial']);
 
-  App.directive('backImg', function(){
-    return function(scope, element, attrs){
-        var url = attrs.backImg;
-        element.css({
-            'background-image': 'url('/static/ + url +')',
-            'background-size' : 'cover'
-        });
-    };
-})
-
   App.controller('SearchCtrl', ['$scope','$http','$mdToast','$mdMedia','$mdDialog', function ($scope,$http,$mdToast,$mdMedia,$mdDialog) {
+
+const GETTY_KEY = "bdc6kp7u2xk95cv2zkyxsx2g";
 
   $scope.search="";
   $scope.showDetails=false;
   $scope.isLoading=false;
   $scope.page=1;
   $scope.movies = [];
+  $scope.actors =[];
   $scope.movieInfo=[];
   $scope.movietype="";
   $scope.types = [
@@ -148,7 +141,6 @@ if (Meteor.isClient) {
             $scope.isLoading = false;
     });
                 };
-
         $scope.GetDetails = function(movie){
           $scope.isLoading=true;
           $scope.showDetails=true;
@@ -157,6 +149,13 @@ if (Meteor.isClient) {
                       't='+movie.Title
                     ).then(function successCallback(response) {
                         console.log(response);
+                        $scope.actorsList=response.data.Actors.split(", ");
+                        for (var i in $scope.actorsList){
+                          $scope.actor= $scope.actorsList[i];
+                          $scope.actors.push({
+                            name:$scope.actor
+                          });
+                        }
                           $scope.isLoading=false;
 
                     $scope.movieInfo = response.data;
