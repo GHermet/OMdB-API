@@ -18,7 +18,7 @@ Its purpose is to look up **Movies**, **Series** or **Episode** information by *
 
 ## Contributors
 
-* Guillaume Hermet
+Guillaume Hermet
 
 ## License
 
